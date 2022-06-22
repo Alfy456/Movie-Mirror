@@ -1,0 +1,82 @@
+﻿@model Tms.Web.Models.TvShowViewModel
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>TvShowViewModel</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.TvShowId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TvShowId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Language)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Language)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Status)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Status)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Premiered)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Premiered)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Ended)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Ended)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UpdatedWhen)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UpdatedWhen)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Image)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Image)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -1,0 +1,88 @@
+﻿@model Tms.Web.Models.TvShowViewModel
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>TvShowViewModel</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.TvShowId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TvShowId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Language)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Language)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Status)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Status)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Premiered)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Premiered)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Ended)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Ended)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UpdatedWhen)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UpdatedWhen)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Image)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Image)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

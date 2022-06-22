@@ -16,7 +16,7 @@ namespace Tms.Data
     public partial class TmsEntities : DbContext
     {
         public TmsEntities()
-            : base("name=TmsEntities")
+            : base("TmsEntities")
         {
         }
     
@@ -28,5 +28,6 @@ namespace Tms.Data
         public virtual DbSet<Actor> Actors { get; set; }
         public virtual DbSet<Movie> Movies { get; set; }
         public virtual DbSet<TvShow> TvShows { get; set; }
+
     }
 }

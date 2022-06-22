@@ -1,0 +1,90 @@
+﻿@model Tms.Web.Models.MovieViewModel
+using Tms.Enum;
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>MovieViewModel</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Id)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MovieId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Language)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Language)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.OttPlatform)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.OttPlatform)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ReleaseDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ReleaseDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TrailerDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TrailerDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TeaserDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TeaserDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.OttReleaseDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.OttReleaseDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Image)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Image)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

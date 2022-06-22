@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Web;
+using Tms.Enum;
 
 namespace Tms.Web.Models
 {
@@ -10,7 +12,10 @@ namespace Tms.Web.Models
         public int Id { get; set; }
         public Nullable<int> MovieId { get; set; }
         public string Name { get; set; }
-        public string Language { get; set; }
+
+        [Description("Select Language")]
+        public Language Language { get; set; }
+
         public string OttPlatform { get; set; }
         public Nullable<System.DateTime> ReleaseDate { get; set; }
         public Nullable<System.DateTime> TrailerDate { get; set; }
