@@ -24,5 +24,8 @@ namespace Tms.Data
         public Nullable<System.DateTime> TeaserDate { get; set; }
         public Nullable<System.DateTime> OttReleaseDate { get; set; }
         public string Image { get; set; }
+        public Nullable<bool> IsUploadedToTelegram { get; set; }
+        public Nullable<System.DateTime> CreatedDate { get; set; }
+        public Nullable<System.DateTime> UpdatedDate { get; set; }
     }
 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using Tms.Enum;
 
 namespace Tms.Web.Models
 {
@@ -10,12 +11,18 @@ namespace Tms.Web.Models
         public int Id { get; set; }
         public int TvShowId { get; set; }
         public string Name { get; set; }
-        public string Language { get; set; }
-        public string Status { get; set; }
+        public Language Language { get; set; }
+        public Status Status { get; set; }
         public Nullable<System.DateTime> Premiered { get; set; }
         public Nullable<System.DateTime> Ended { get; set; }
         public Nullable<System.DateTime> UpdatedWhen { get; set; }
         public string Image { get; set; }
+        public Ott OttPlatform { get; set; }
+        public DateTime? NewSeasonReleaseDate { get; set; }
+        public DateTime? TrailerDate { get; set; }
+        public DateTime? CreatedDate { get; set; }
+        public string CreatedBy { get; set; }
+        public bool IsManualAddition { get; set; }
     }
     public class ShowMainInformation
     {

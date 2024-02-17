@@ -90,7 +90,7 @@ namespace Tms.Domain
                     var ObjShowMainInformation = JsonConvert.DeserializeObject<List<ShowMainInformation>>(jsonText);
 
                     DateTime dtNow = DateTime.Today;
-                    DateTime dtDefaultDate = new DateTime(1753, 01, 01);
+                    DateTime dtDefaultDate = new DateTime(1900, 01, 01);
 
                     string strImageLink = "Default";
                     var xml = new XDocument(
@@ -104,9 +104,9 @@ namespace Tms.Domain
 
                             new XAttribute("Status", tmp.status),
 
-                                  new XAttribute("Premiered", tmp.premiered = tmp.premiered == null ? dtDefaultDate : tmp.premiered),
+                                  new XAttribute("Premiered", tmp.premiered = tmp.premiered == null || tmp.premiered < dtDefaultDate? dtDefaultDate : tmp.premiered),
 
-                                     new XAttribute("Ended", tmp.ended = tmp.ended == null ? dtDefaultDate : tmp.ended),
+                                     new XAttribute("Ended", tmp.ended = tmp.ended == null || tmp.ended < dtDefaultDate ? dtDefaultDate : tmp.ended),
 
                                       new XAttribute("Image", strImageLink = tmp.image == null ? "Default" : tmp.image.medium = tmp.image.medium == null ? "Default" : tmp.image.medium),
 
@@ -147,12 +147,12 @@ namespace Tms.Domain
             //}
         }
 
-        public IEnumerable<TvShow> GetAnniversary(DateTime p_dtTomorrow)
+        public IEnumerable<TvShow> GetAnniversary(DateTime p_dtDate)
         {
             var tvshows = (from t in db.TvShows
                            where
-                           t.Premiered.Value.Day == p_dtTomorrow.Day &&
-                           t.Premiered.Value.Month == p_dtTomorrow.Month
+                           t.Premiered.Value.Day == p_dtDate.Day &&
+                           t.Premiered.Value.Month == p_dtDate.Month
                            select t).ToList().OrderByDescending(t => t.Premiered);
             return tvshows;
         }

@@ -30,4 +30,27 @@ namespace Tms.Domain.Models
         public string medium { get; set; }
         public string original { get; set; }
     }
+    public class MovieBasicDetails
+    {
+        public int id { get; set; }
+        public string original_language { get; set; }
+        public string poster_path { get; set; }
+        public string title { get; set; }
+        public DateTime?  release_date { get; set; }
+    }
+    public class MoviePageDetails
+    {
+        public int page { get; set; }
+        public int total_pages { get; set; }
+        public int total_results { get; set; }
+
+    }
+
+    public class MovieInformation
+    {
+        public List<MovieBasicDetails> Results { get; set; }
+        public int page { get; set; }
+        public int total_pages { get; set; }
+        public int total_results { get; set; }
+    }
 }

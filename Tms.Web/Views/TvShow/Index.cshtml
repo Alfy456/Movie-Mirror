@@ -1,47 +1,66 @@
-﻿@model IEnumerable<Tms.Web.Models.TvShowViewModel>
+﻿@model PagedList.IPagedList<Tms.Web.Models.TvShowViewModel>
+@using PagedList.Mvc;
 
 @{
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h2>Index1</h2>
 
-<p>
+<div>
     @Html.ActionLink("Create New", "Create")
-</p>
-<p>
-    @Html.ActionLink("Update Db", "UpdateTvShows")
-</p>
+</div>
+
+@*<p>
+        @Html.ActionLink("Update Db", "UpdateTvShows")
+    </p>*@
 
 <p>
     @Html.ActionLink("Update Show Info", "UpdateTvShowsInformation")
 </p>
 
+<p>
+    @Html.ActionLink("Anniversary Today", "Anniversary", new { SelectedDate = "Today" })
+</p>
+
+<p>
+    @Html.ActionLink("Anniversary Tommorow", "Anniversary")
+</p>
+
+@using (Html.BeginForm("Index", "TvShow", FormMethod.Get))
+{
+    <p>
+        Find by name: @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
+        <input type="submit" value="Search" />
+    </p>
+}
+
+
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.TvShowId)
+            @Html.ActionLink("Id", "Index", new { sortOrder = ViewBag.NameSortParm, currentFilter = ViewBag.CurrentFilter })
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Name)
+            Name
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Language)
+            Language
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Status)
+            Status
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Premiered)
+            Premiered
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Ended)
+            Ended
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.UpdatedWhen)
+            UpdatedWhen
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Image)
+            Image
         </th>
         <th></th>
     </tr>
@@ -82,3 +101,33 @@
     }
 
 </table>
+
+<br />
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+@Html.PagedListPager(Model, page => Url.Action("Index",
+    new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#SearchString").autocomplete({
+            source: function (request, response) {
+                $.ajax({
+                    url: "/TvShow/AutoComplete",
+                    type: "POST",
+                    dataType: "json",
+                    data: { Prefix: request.term },
+                    success: function (data) {
+                        response($.map(data, function (item) {
+                            return { label: item.Name, value: item.Name };
+                        }))
+
+                    }
+                })
+            },
+            messages: {
+                noResults: "", results: ""
+            }
+        });
+    })
+</script>

@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="TmsModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="TmsModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Actor">
           <Key>
             <PropertyRef Name="Id" />
@@ -16,6 +16,16 @@
           <Property Name="Birthday" Type="datetime" />
           <Property Name="Gender" Type="varchar" MaxLength="255" />
           <Property Name="Image" Type="varchar" MaxLength="512" />
+        </EntityType>
+        <EntityType Name="Job">
+          <Key>
+            <PropertyRef Name="JobId" />
+          </Key>
+          <Property Name="JobId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="255" />
+          <Property Name="Status" Type="nvarchar" MaxLength="255" />
+          <Property Name="CreatedWhen" Type="date" />
+          <Property Name="UpdatedWhen" Type="date" />
         </EntityType>
         <EntityType Name="Movie">
           <Key>
@@ -31,6 +41,9 @@
           <Property Name="TeaserDate" Type="datetime" />
           <Property Name="OttReleaseDate" Type="datetime" />
           <Property Name="Image" Type="nvarchar" MaxLength="512" />
+          <Property Name="IsUploadedToTelegram" Type="bit" Nullable="false" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="UpdatedDate" Type="datetime" />
         </EntityType>
         <EntityType Name="TvShow">
           <Key>
@@ -45,14 +58,20 @@
           <Property Name="Ended" Type="datetime" />
           <Property Name="UpdatedWhen" Type="datetime" />
           <Property Name="Image" Type="nvarchar" MaxLength="512" />
+          <Property Name="OttPlatform" Type="nvarchar" MaxLength="50" />
+          <Property Name="NewSeasonReleaseDate" Type="datetime" />
+          <Property Name="TrailerDate" Type="datetime" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="CreatedBy" Type="nvarchar" MaxLength="50" />
+          <Property Name="IsManualAddition" Type="bit" />
         </EntityType>
         <EntityContainer Name="TmsModelStoreContainer">
           <EntitySet Name="Actor" EntityType="Self.Actor" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Job" EntityType="Self.Job" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Movie" EntityType="Self.Movie" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TvShow" EntityType="Self.TvShow" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="TmsModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -68,6 +87,42 @@
           <Property Name="Gender" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="Image" Type="String" MaxLength="512" FixedLength="false" Unicode="false" />
         </EntityType>
+        <EntityType Name="TvShow">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TvShowId" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Language" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Status" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Premiered" Type="DateTime" Precision="3" />
+          <Property Name="Ended" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedWhen" Type="DateTime" Precision="3" />
+          <Property Name="Image" Type="String" MaxLength="512" FixedLength="false" Unicode="true" />
+          <Property Name="OttPlatform" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="NewSeasonReleaseDate" Type="DateTime" Precision="3" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="CreatedBy" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="IsManualAddition" Type="Boolean" />
+          <Property Name="TrailerDate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityContainer Name="TmsEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Actors" EntityType="Self.Actor" />
+          <EntitySet Name="TvShows" EntityType="Self.TvShow" />
+          <EntitySet Name="Jobs" EntityType="TmsModel.Job" />
+          <EntitySet Name="Movies" EntityType="TmsModel.Movie" />
+        </EntityContainer>
+        <EntityType Name="Job">
+          <Key>
+            <PropertyRef Name="JobId" />
+          </Key>
+          <Property Name="JobId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Status" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedWhen" Type="DateTime" Precision="0" />
+          <Property Name="UpdatedWhen" Type="DateTime" Precision="0" />
+        </EntityType>
         <EntityType Name="Movie">
           <Key>
             <PropertyRef Name="Id" />
@@ -82,26 +137,10 @@
           <Property Name="TeaserDate" Type="DateTime" Precision="3" />
           <Property Name="OttReleaseDate" Type="DateTime" Precision="3" />
           <Property Name="Image" Type="String" MaxLength="512" FixedLength="false" Unicode="true" />
+          <Property Name="IsUploadedToTelegram" Type="Boolean" Nullable="false" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
         </EntityType>
-        <EntityType Name="TvShow">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="TvShowId" Type="Int32" Nullable="false" />
-          <Property Name="Name" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="Language" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="Status" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="Premiered" Type="DateTime" Precision="3" />
-          <Property Name="Ended" Type="DateTime" Precision="3" />
-          <Property Name="UpdatedWhen" Type="DateTime" Precision="3" />
-          <Property Name="Image" Type="String" MaxLength="512" FixedLength="false" Unicode="true" />
-        </EntityType>
-        <EntityContainer Name="TmsEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Actors" EntityType="Self.Actor" />
-          <EntitySet Name="Movies" EntityType="Self.Movie" />
-          <EntitySet Name="TvShows" EntityType="Self.TvShow" />
-        </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -121,25 +160,15 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Movies">
-            <EntityTypeMapping TypeName="TmsModel.Movie">
-              <MappingFragment StoreEntitySet="Movie">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="MovieId" ColumnName="MovieId" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Language" ColumnName="Language" />
-                <ScalarProperty Name="OttPlatform" ColumnName="OttPlatform" />
-                <ScalarProperty Name="ReleaseDate" ColumnName="ReleaseDate" />
-                <ScalarProperty Name="TrailerDate" ColumnName="TrailerDate" />
-                <ScalarProperty Name="TeaserDate" ColumnName="TeaserDate" />
-                <ScalarProperty Name="OttReleaseDate" ColumnName="OttReleaseDate" />
-                <ScalarProperty Name="Image" ColumnName="Image" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="TvShows">
             <EntityTypeMapping TypeName="TmsModel.TvShow">
               <MappingFragment StoreEntitySet="TvShow">
+                <ScalarProperty Name="TrailerDate" ColumnName="TrailerDate" />
+                <ScalarProperty Name="IsManualAddition" ColumnName="IsManualAddition" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="NewSeasonReleaseDate" ColumnName="NewSeasonReleaseDate" />
+                <ScalarProperty Name="OttPlatform" ColumnName="OttPlatform" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="TvShowId" ColumnName="TvShowId" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
@@ -149,6 +178,36 @@
                 <ScalarProperty Name="Ended" ColumnName="Ended" />
                 <ScalarProperty Name="UpdatedWhen" ColumnName="UpdatedWhen" />
                 <ScalarProperty Name="Image" ColumnName="Image" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Jobs">
+            <EntityTypeMapping TypeName="TmsModel.Job">
+              <MappingFragment StoreEntitySet="Job">
+                <ScalarProperty Name="UpdatedWhen" ColumnName="UpdatedWhen" />
+                <ScalarProperty Name="CreatedWhen" ColumnName="CreatedWhen" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="JobId" ColumnName="JobId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Movies">
+            <EntityTypeMapping TypeName="TmsModel.Movie">
+              <MappingFragment StoreEntitySet="Movie">
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="IsUploadedToTelegram" ColumnName="IsUploadedToTelegram" />
+                <ScalarProperty Name="Image" ColumnName="Image" />
+                <ScalarProperty Name="OttReleaseDate" ColumnName="OttReleaseDate" />
+                <ScalarProperty Name="TeaserDate" ColumnName="TeaserDate" />
+                <ScalarProperty Name="TrailerDate" ColumnName="TrailerDate" />
+                <ScalarProperty Name="ReleaseDate" ColumnName="ReleaseDate" />
+                <ScalarProperty Name="OttPlatform" ColumnName="OttPlatform" />
+                <ScalarProperty Name="Language" ColumnName="Language" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="MovieId" ColumnName="MovieId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

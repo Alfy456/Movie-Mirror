@@ -1,4 +1,5 @@
-﻿@model IEnumerable<Tms.Web.Models.MovieViewModel>
+﻿@model PagedList.IPagedList<Tms.Web.Models.MovieViewModel>
+@using PagedList.Mvc;
 
 @{
     ViewBag.Title = "Index";
@@ -9,73 +10,126 @@
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
+<p>
+    @Html.ActionLink("Release Today", "Release", new { IsAReleaseToday = true })
+</p>
+
+<p>
+    @Html.ActionLink("Release Tommorow", "Release", new { IsAReleaseToday = false })
+</p>
+
+@using (Html.BeginForm("Index", "Movie", FormMethod.Get))
+{
+    <p>
+        Find by name: @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
+        <input type="submit" value="Search" />
+    </p>
+
+}
+
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.MovieId)
+            @Html.ActionLink("MovieId", "Index", new { sortOrder = ViewBag.NameSortParm, currentFilter = ViewBag.CurrentFilter })
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Name)
+            Name
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Language)
+            Language
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.OttPlatform)
+            OttPlatform
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.ReleaseDate)
+            Upload To Telegram
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.TrailerDate)
+            ReleaseDate
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.TeaserDate)
+            TrailerDate
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.OttReleaseDate)
+            TeaserDate
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Image)
+            OttReleaseDate
+        </th>
+        <th>
+            Image
         </th>
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.MovieId)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Language)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.OttPlatform)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ReleaseDate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.TrailerDate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.TeaserDate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.OttReleaseDate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Image)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.MovieId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Language)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OttPlatform)
+            </td>
+            <td>
+                @Html.CheckBoxFor(modelItem => item.IsUploadedToTelegram, new { @disabled = "disabled" })
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ReleaseDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TrailerDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TeaserDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OttReleaseDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Image)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+            </td>
+        </tr>
+    }
 
 </table>
+
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+@Html.PagedListPager(Model, page => Url.Action("Index",
+    new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#SearchString").autocomplete({
+            source: function (request, response) {
+                $.ajax({
+                    url: "/Movie/AutoComplete",
+                    type: "POST",
+                    dataType: "json",
+                    data: { Prefix: request.term },
+                    success: function (data) {
+                        response($.map(data, function (item) {
+                            return { label: item.Name, value: item.Name };
+                        }))
+
+                    }
+                })
+            },
+            messages: {
+                noResults: "", results: ""
+            }
+        });
+    })
+</script>

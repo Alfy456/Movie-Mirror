@@ -23,5 +23,11 @@ namespace Tms.Data
         public Nullable<System.DateTime> Ended { get; set; }
         public Nullable<System.DateTime> UpdatedWhen { get; set; }
         public string Image { get; set; }
+        public string OttPlatform { get; set; }
+        public Nullable<System.DateTime> NewSeasonReleaseDate { get; set; }
+        public Nullable<System.DateTime> CreatedDate { get; set; }
+        public string CreatedBy { get; set; }
+        public Nullable<bool> IsManualAddition { get; set; }
+        public Nullable<System.DateTime> TrailerDate { get; set; }
     }
 }
