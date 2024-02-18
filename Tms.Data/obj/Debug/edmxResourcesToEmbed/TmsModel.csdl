@@ -1,0 +1,69 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="TmsModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Actor">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ActorId" Type="Int32" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Country" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="Birthday" Type="DateTime" Precision="3" />
+    <Property Name="Gender" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="Image" Type="String" MaxLength="512" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="TvShow">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="TvShowId" Type="Int32" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="Language" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="Status" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="Premiered" Type="DateTime" Precision="3" />
+    <Property Name="Ended" Type="DateTime" Precision="3" />
+    <Property Name="UpdatedWhen" Type="DateTime" Precision="3" />
+    <Property Name="Image" Type="String" MaxLength="512" FixedLength="false" Unicode="true" />
+    <Property Name="OttPlatform" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="NewSeasonReleaseDate" Type="DateTime" Precision="3" />
+    <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+    <Property Name="CreatedBy" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="IsManualAddition" Type="Boolean" />
+    <Property Name="TrailerDate" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityContainer Name="TmsEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Actors" EntityType="Self.Actor" />
+    <EntitySet Name="TvShows" EntityType="Self.TvShow" />
+    <EntitySet Name="Jobs" EntityType="TmsModel.Job" />
+    <EntitySet Name="Movies" EntityType="TmsModel.Movie" />
+  </EntityContainer>
+  <EntityType Name="Job">
+    <Key>
+      <PropertyRef Name="JobId" />
+    </Key>
+    <Property Name="JobId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="Status" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="CreatedWhen" Type="DateTime" Precision="0" />
+    <Property Name="UpdatedWhen" Type="DateTime" Precision="0" />
+  </EntityType>
+  <EntityType Name="Movie">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="MovieId" Type="Int32" />
+    <Property Name="Name" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="Language" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="OttPlatform" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="ReleaseDate" Type="DateTime" Precision="3" />
+    <Property Name="TrailerDate" Type="DateTime" Precision="3" />
+    <Property Name="TeaserDate" Type="DateTime" Precision="3" />
+    <Property Name="OttReleaseDate" Type="DateTime" Precision="3" />
+    <Property Name="Image" Type="String" MaxLength="512" FixedLength="false" Unicode="true" />
+    <Property Name="IsUploadedToTelegram" Type="Boolean" Nullable="false" />
+    <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+    <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+  </EntityType>
+</Schema>

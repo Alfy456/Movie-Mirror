@@ -1,0 +1,12 @@
+E:\MvcProjects\Tms\Tms\Tms.Data\bin\Release\Tms.Data.dll.config
+E:\MvcProjects\Tms\Tms\Tms.Data\bin\Release\Tms.Data.dll
+E:\MvcProjects\Tms\Tms\Tms.Data\bin\Release\Tms.Data.pdb
+E:\MvcProjects\Tms\Tms\Tms.Data\bin\Release\EntityFramework.dll
+E:\MvcProjects\Tms\Tms\Tms.Data\bin\Release\EntityFramework.SqlServer.dll
+E:\MvcProjects\Tms\Tms\Tms.Data\bin\Release\EntityFramework.xml
+E:\MvcProjects\Tms\Tms\Tms.Data\bin\Release\EntityFramework.SqlServer.xml
+E:\MvcProjects\Tms\Tms\Tms.Data\obj\Release\Tms.Data.csproj.AssemblyReference.cache
+E:\MvcProjects\Tms\Tms\Tms.Data\obj\Release\Tms.Data.csproj.CoreCompileInputs.cache
+E:\MvcProjects\Tms\Tms\Tms.Data\obj\Release\Tms.Data.csproj.CopyComplete
+E:\MvcProjects\Tms\Tms\Tms.Data\obj\Release\Tms.Data.dll
+E:\MvcProjects\Tms\Tms\Tms.Data\obj\Release\Tms.Data.pdb

@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="TmsModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Actor">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ActorId" Type="int" Nullable="false" />
+    <Property Name="Name" Type="varchar" MaxLength="255" Nullable="false" />
+    <Property Name="Country" Type="varchar" MaxLength="255" />
+    <Property Name="Birthday" Type="datetime" />
+    <Property Name="Gender" Type="varchar" MaxLength="255" />
+    <Property Name="Image" Type="varchar" MaxLength="512" />
+  </EntityType>
+  <EntityType Name="Movie">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="MovieId" Type="int" />
+    <Property Name="Name" Type="varchar" MaxLength="255" />
+    <Property Name="Language" Type="varchar" MaxLength="255" />
+    <Property Name="OttPlatform" Type="varchar" MaxLength="255" />
+    <Property Name="ReleaseDate" Type="datetime" />
+    <Property Name="TrailerDate" Type="datetime" />
+    <Property Name="TeaserDate" Type="datetime" />
+    <Property Name="OttReleaseDate" Type="datetime" />
+    <Property Name="Image" Type="nvarchar" MaxLength="512" />
+  </EntityType>
+  <EntityType Name="TvShow">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TvShowId" Type="int" Nullable="false" />
+    <Property Name="Name" Type="varchar" MaxLength="255" />
+    <Property Name="Language" Type="varchar" MaxLength="255" />
+    <Property Name="Status" Type="varchar" MaxLength="255" />
+    <Property Name="Premiered" Type="datetime" />
+    <Property Name="Ended" Type="datetime" />
+    <Property Name="UpdatedWhen" Type="datetime" />
+    <Property Name="Image" Type="nvarchar" MaxLength="512" />
+  </EntityType>
+  <EntityContainer Name="TmsModelStoreContainer">
+    <EntitySet Name="Actor" EntityType="Self.Actor" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Movie" EntityType="Self.Movie" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TvShow" EntityType="Self.TvShow" Schema="dbo" store:Type="Tables" />
+  </EntityContainer>
+</Schema>
